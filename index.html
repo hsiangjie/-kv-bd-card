@@ -120,6 +120,73 @@ header .ticket{display:inline-flex;align-items:center;flex:none;color:#20344a;ba
 @keyframes liftLid {from {transform:none}}
 @keyframes boxSurprise {0%,25% {opacity:0;bottom:32px}}
 @media(prefers-reduced-motion:reduce){#mysteryBox *{animation:none}}
+:root {--cream:#fff9ea;--muted:#344d68;--orange:#9d294c}
+body {
+  color:#162e59;
+  background:radial-gradient(ellipse at 95% 12%,#b9e5df 0,transparent 48%),
+    radial-gradient(ellipse at 3% 90%,#ead8ed,transparent 54%),#f8f2df;
+}
+header {color:#193e77;border-color:#bfa66b;font-family:Georgia,"Songti TC",serif}
+header .ticket {background:linear-gradient(110deg,#ffe7ab,#efc677);border-color:#9e7541;color:#3f2b30}
+.eyebrow {color:#16685f}
+.birthday-title h1,.marquee {font-family:Georgia,"Songti TC","Noto Serif TC",serif}
+.birthday-title h1 em {color:#204f94}
+.collection {border-color:#b7b0a0}
+.machine {border-color:#ac8746;background:linear-gradient(125deg,#458baf,#254f99 45%,#172d60);box-shadow:inset 0 0 0 3px #ebca82,0 5px 0 #183958,0 18px 32px -12px #223e6344}
+.marquee {position:relative;background:radial-gradient(circle,#fff2ac 1.5px,#d6a85d 2px,transparent 3px) left 4px top 3px/17px 8px repeat-x,linear-gradient(110deg,#183973,#325eaa 50%,#183973);color:#fff1c7;border-color:#f1ce83;text-shadow:0 2px 1px #162744}
+.marquee::before,.marquee::after {content:"";display:inline-block;width:.45em;height:.52em;vertical-align:middle;margin:0 .32em;background:#efcd84;clip-path:polygon(50% 0,61% 36%,100% 50%,61% 62%,50% 100%,38% 62%,0 50%,38% 36%)}
+.awning {background:repeating-linear-gradient(90deg,#22766f 0 18px,#fff0c9 18px 34px,#b44966 34px 52px,#fff0c9 52px 68px);border-color:#cdaa63}
+.glass {background:radial-gradient(circle at 18% 28%,#fff6be 0 5%,transparent 5.4%),linear-gradient(#90bfdc,#dfeced 63%,#abd6bd 64%,#70ac9b 82%,#e8c98e 83%);border-color:#3d6681}
+.glass::before {content:"";position:absolute;pointer-events:none;left:18%;width:40%;top:20%;height:48%;background:linear-gradient(#779cc1,#a5c0cc);clip-path:polygon(0 100%,0 63%,7% 51%,14% 63%,14% 71%,23% 71%,23% 45%,20% 45%,30% 21%,40% 45%,37% 45%,37% 60%,46% 60%,46% 29%,43% 29%,54% 0,65% 29%,62% 29%,62% 61%,72% 61%,72% 47%,69% 47%,79% 22%,89% 47%,86% 47%,86% 71%,93% 71%,93% 58%,100% 48%,100% 100%)}
+.wheel {border-color:#487c89}
+.glass::after {background-color:#b94f66}
+.panel {background:#163e60;border-color:#ae935d}
+.status {color:#e4eff4}
+.controls button {background:#206860;border-color:#87bab1}
+.controls .drop,dialog .drop {background:linear-gradient(#ae3659,#8d2347);color:#fff8ea;border-color:#e7bd83;box-shadow:inset 0 -3px #691b36}
+.basket {border-color:#ad8851;border-top-color:#f5cf8d;background:repeating-linear-gradient(0deg,#a47747 0 2px,transparent 2px 7px),repeating-linear-gradient(103deg,#d6a665 0 8px,#e7bd81 8px 15px)}
+.basket::before {border-color:#b78c50}
+.basket .slots button {background:#20526b;border-color:#edcc8f}
+.basket .slots button[data-empty="true"] {background:#ece2c9;color:#524632;border-color:#967743}
+dialog {background:#fff9ec;color:#1b355b;border-color:#bc9958}
+dialog::backdrop {background:#0b1937bd}
+dialog .eyebrow {color:#85622e}
+dialog p {color:#35465b}
+.box-base,.box-lid {background:linear-gradient(90deg,#17695e 40%,#f3cc78 40% 58%,#238074 58%)}
+.box-mark {color:#a33154}
+
+:root{--cream:#fdfbf7;--muted:#4c627c;--orange:#41648d}
+body{background:radial-gradient(ellipse at 82% 15%,#fffefb,transparent 52%),linear-gradient(145deg,#e4eff8,#f6f8fb 54%,#d9e7f3);color:#294866}
+header,.birthday-title h1 em{color:#375c84}
+header,.collection{border-color:#cdbf9f}
+header .ticket{background:#fbf7eb;color:#355571;border-color:#d3bd90}
+.eyebrow{color:#476585}
+.machine{background:linear-gradient(125deg,#e7f0f9,#abc7de 53%,#8eadcc);border-color:#c8b794;box-shadow:inset 0 0 0 2px #f7ecd5,0 4px 0 #849cb6,0 16px 35px -16px #576f8b66}
+.marquee{color:#294c73;background:radial-gradient(circle,#fffbea 1.5px,#decdab 2px,transparent 3px) left 4px top 3px/17px 8px repeat-x,linear-gradient(115deg,#eef6fc,#cbdfee 56%,#f2f6fa);border:1px solid #bfab82;text-shadow:0 1px #fff}
+.marquee::before,.marquee::after{width:.68em;height:.58em;clip-path:none;background:radial-gradient(circle at 50% 64%,#ad976b 0 36%,transparent 38%),radial-gradient(circle at 22% 26%,#ad976b 0 20%,transparent 22%),radial-gradient(circle at 78% 26%,#ad976b 0 20%,transparent 22%);margin-inline:.32em}
+.awning{background:repeating-linear-gradient(90deg,#aac9e1 0 18px,#f9faf6 18px 36px);border-bottom:1px solid #c6b38c}
+.glass{background:radial-gradient(circle at 19% 26%,#fffdf0 0 4.5%,transparent 5%),linear-gradient(#c1dcee,#edf5f9 63%,#c5d7e4 64%,#dce8ef 82%,#f6f2e7 83%);border-color:#9eb5c8}
+.glass::before{background:linear-gradient(#8facc8,#bdcedd)}
+.glass::after{background:radial-gradient(ellipse at top,#fbf8ee 0 65%,transparent 68%) 0 0/23px 10px repeat-x,#9bb8d3}
+.wheel{border-color:#6887a3}.rail{background:#b9a883}
+.panel{background:#dce9f3;border-color:#c5b696}
+.status{color:#38546c}
+.controls button,dialog .close{background:#fcfbf7;border-color:#c3b390;color:#365674}
+.controls .drop,dialog .drop{background:linear-gradient(#577ba0,#385e86);color:white;border-color:#cdbb95;box-shadow:inset 0 -2px #304e70}
+.basket{background:repeating-linear-gradient(0deg,#99b5cc 0 1px,transparent 1px 7px),repeating-linear-gradient(103deg,#b8cfdf 0 8px,#c6dae7 8px 15px);border-color:#c4b08c;border-top-color:#e9ddc4;box-shadow:inset 0 -3px #889fb3,0 5px 12px #42648522}
+.basket::before{border-color:#bcac8c}
+.basket .slots button{background:#e4eff7;color:#29496a;border-color:#bcab89}
+.basket .slots button[data-empty="true"]{background:#eff3f5;border-color:#9cabb8;color:#50647a}
+dialog{background:#fafbf9;border-color:#c9b894;color:#294967}
+dialog::backdrop{background:#182d49b8}
+dialog .eyebrow{color:#516b84}
+.box-base,.box-lid{background:linear-gradient(90deg,#759abf 40%,#ecddbb 40% 58%,#8eaecc 58%)}
+.box-mark{color:#365e8a}
+.box-lid:before,.box-lid:after{border-color:#d2bd90}
+#cardSheet.voucher{background:linear-gradient(90deg,#e1e5e4,#faf9f1 13%,#f8faf8 86%,#dee6e9);border-color:#c7b794}
+.voucher::before,.voucher::after{background:linear-gradient(#b6a17c,#f3e9ce 32%,#ddcda7 65%,#af9871);border-color:#b6a17c}
+.voucher #cardTitle,.voucher #validity{color:#385775}
+
 </style>
 </head>
 <body>
