@@ -71,6 +71,16 @@ h1{font-family:system-ui,sans-serif;line-height:1.17}.collection{border-color:#4
   color: #fff2d8;
   font: 700 11px system-ui;
 }
+
+.basket{position:relative;margin:32px 2px 8px;padding:8px 7px 16px;border:2px solid #bd7940;border-top:7px solid #ffc27f;border-radius:9px 9px 24px 24px;background:repeating-linear-gradient(0deg,#814727 0 2px,transparent 2px 7px),repeating-linear-gradient(100deg,#a96434 0 8px,#b97741 8px 15px);box-shadow:inset 0 -5px #794426,0 6px 9px #08132040}
+.basket::before{content:"";position:absolute;left:27%;right:27%;height:17px;bottom:calc(100% + 5px);border:5px solid #d28a4b;border-bottom:0;border-radius:36px 36px 0 0}
+.basket .slots{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.basket .slots button{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;min-width:0;padding:5px 1px 6px;min-height:76px;border:1px solid #daa265;border-radius:5px 5px 10px 10px;background:#233951;color:#fff1d8;font-size:clamp(10px,2.8vw,12px);line-height:1.3}
+.basket .slots button:disabled{opacity:1;cursor:default}
+.basket .slots button[data-empty="true"]{border:1px dashed #bd926a;background:#553f33;color:#f7e0c3}
+.basket .slots button::before{content:"";display:block;width:90%;height:44px;background:var(--photo) center bottom/contain no-repeat}
+.basket .slots button[data-empty="true"]::before{width:19px;height:19px;margin:auto;border:1px dashed #c9a483;border-radius:50%;background:none}
+.flying-dog{pointer-events:none;position:fixed;z-index:10;transform-origin:center;background:center/contain no-repeat}
 </style>
 </head>
 <body>
@@ -95,7 +105,7 @@ h1{font-family:system-ui,sans-serif;line-height:1.17}.collection{border-color:#4
 </section>
 <section class="collection" aria-label="我的娃娃">
 <h2>我的娃娃 <span id="count">0 / 5</span></h2>
-<div class="slots" id="slots"></div>
+<div class="basket"><div class="slots" id="slots"></div></div>
 <button class="reset" id="reset" hidden>再玩一次</button>
 </section>
 </div>
@@ -171,7 +181,9 @@ const slots = gifts.map((gift, index) => {
 function refresh() {
   slots.forEach((button, index) => {
     const found = collected.has(index);
-    button.disabled = !found;
+    button.disabled = busy || !found;
+    button.dataset.empty = String(!found);
+    button.style.setProperty('--photo', found ? 'url(' + dogPhotos[gifts[index].photo] + ')' : 'none');
     button.textContent = found ? gifts[index].name : '待夾取';
   });
   $('count').textContent = collected.size + ' / ' + gifts.length;
@@ -203,6 +215,40 @@ function reveal() {
   $('open').hidden = true;
   card.querySelector('.close').focus();
 }
+async function landInBasket(prize, index) {
+  const start = prize.getBoundingClientRect();
+  const flyer = document.createElement('div');
+  flyer.className = 'flying-dog';
+  flyer.setAttribute('aria-hidden', 'true');
+  Object.assign(flyer.style, {
+    left: start.left + 'px', top: start.top + 'px',
+    width: start.width + 'px', height: start.height + 'px',
+    backgroundImage: prize.style.backgroundImage
+  });
+  prize.style.visibility = 'hidden';
+  document.body.append(flyer);
+  try {
+    const slot = slots[index];
+    slot.scrollIntoView({block:'nearest', behavior:reduced.matches ? 'instant' : 'smooth'});
+    if (reduced.matches) return;
+    const began = performance.now();
+    await new Promise(resolve => {
+      function frame(now) {
+        const progress = Math.min(1, (now - began) / 900);
+        const target = slot.getBoundingClientRect();
+        const x = (target.left + target.width / 2 - start.left - start.width / 2) * progress;
+        const y = (target.top + 27 - start.top - start.height / 2) * progress - 52 * Math.sin(Math.PI * progress);
+        flyer.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + (1 - 0.45 * progress) + ')';
+        if (progress === 1) resolve();
+        else requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+  } finally {
+    flyer.remove();
+    prize.style.visibility = '';
+  }
+}
 async function drop() {
   if (busy || collected.size === gifts.length) return;
   busy = true;
@@ -220,9 +266,13 @@ async function drop() {
   await pause(560);
   claw.classList.remove('gripping');
   if (prize) {
+    $('status').textContent = '夾到了！送進籃子…';
+    await landInBasket(prize, index);
     prize.hidden = true;
     prize.style.display = 'none';
     collected.add(index);
+    refresh();
+    await pause(480);
   }
   busy = false;
   refresh();
