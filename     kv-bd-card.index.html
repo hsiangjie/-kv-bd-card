@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KD 夾娃娃機｜把今天的好球送給你</title>
+<style>
+*{box-sizing:border-box} :root{color-scheme:dark;--ink:#171411;--cream:#fff0d7;--orange:#ff8548;--muted:#c9ae98}
+body{margin:0;background:radial-gradient(ellipse at 75% 25%,#4b291b,transparent 48%),#161311;color:var(--cream);font-family:system-ui,sans-serif;min-height:100svh}
+main{width:min(1120px,calc(100% - 40px));margin:auto;padding:30px 0 50px}
+header{border-bottom:1px solid #ffffff26;display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;font:italic 900 24px system-ui;letter-spacing:.1em}header span{font:600 11px system-ui;letter-spacing:.22em;color:var(--muted)}
+.layout{display:grid;grid-template-columns:1fr 1.12fr;align-items:center;gap:clamp(28px,6vw,90px);margin-top:42px}
+.eyebrow{color:var(--orange);font:700 12px system-ui;letter-spacing:.28em}
+h1{font-size:clamp(35px,5.4vw,74px);line-height:1.12;letter-spacing:-.055em;margin:16px 0}h1 em{color:var(--orange);font-style:normal}
+p{line-height:1.7;color:var(--muted)}.intro>p{max-width:30ch}
+.collection{margin-top:30px;border-top:1px solid #ffffff26;padding-top:15px}.collection h2{font-size:14px;margin:0 0 12px}.collection h2 span{color:var(--orange);margin-left:8px}
+.slots{display:flex;gap:7px;flex-wrap:wrap}.slots button{font-size:12px;padding:8px 10px}.slots button:disabled{border-style:dashed;color:#ccb29e;background:transparent;opacity:.68}
+.machine{padding:10px;border:1px solid #e4a974;border-radius:24px;background:linear-gradient(150deg,#b25634,#713b2c 40%,#39241e);box-shadow:0 22px 60px #080604aa,inset 0 0 0 4px #1e140d70}
+.marquee{text-align:center;padding:13px 4px;background:#201813;border-radius:15px 15px 4px 4px;color:#ffba80;font:italic 900 clamp(20px,3vw,33px) system-ui;letter-spacing:.11em;text-shadow:0 0 20px #ff784d88;border:1px solid #d5946270}
+.glass{position:relative;height:clamp(235px,35vw,365px);overflow:hidden;touch-action:pan-y;background:linear-gradient(117deg,transparent 27%,#ffdeaa10 28% 35%,transparent 36% 62%,#ffdec50c 63% 67%,transparent 68%),radial-gradient(ellipse at 50% 100%,#71442b,#38271f 65%,#201b19);border:1px solid #ffd1a777;border-top:0;box-shadow:inset 0 8px 22px #0807068c}
+.court{position:absolute;inset:auto 9% 0;height:43%;border:1px solid #ffcf9c33;transform:perspective(180px) rotateX(39deg);transform-origin:bottom;background:linear-gradient(90deg,transparent 49.8%,#ffcf9c33 50%,transparent 50.3%)}
+.rail{position:absolute;top:16px;inset-inline:6%;height:4px;border-radius:8px;background:linear-gradient(#e9af83,#7e5136)}
+.claw{position:absolute;z-index:2;top:16px;left:50%;width:44px;transform:translateX(-50%);transition:left .16s ease;pointer-events:none}
+.wire{height:40px;background:linear-gradient(90deg,#786253,#fbd4b6,#745943);width:3px;margin:auto;transition:height .53s ease-in-out}
+.head{position:relative;width:22px;height:13px;margin:auto;border-radius:5px;background:linear-gradient(#fff0d1,#9a7052);box-shadow:0 2px 6px #0008}
+.head:before,.head:after{content:"";position:absolute;top:9px;width:13px;height:21px;border:3px solid #ffd7b4;border-top:0;border-radius:0 0 9px 9px;transition:transform .24s}
+.head:before{left:-8px;transform:rotate(25deg);border-right:0}.head:after{right:-8px;transform:rotate(-25deg);border-left:0}
+.gripping .head:before{transform:translateX(4px) rotate(-14deg)}.gripping .head:after{transform:translateX(-4px) rotate(14deg)}
+.gift{position:absolute;bottom:22px;width:clamp(32px,8vw,58px);height:clamp(34px,8vw,60px);translate:-50% 0;border-radius:5px 5px 9px 9px;background:linear-gradient(90deg,transparent 42%,#ffe2ab 42% 58%,transparent 58%),linear-gradient(145deg,var(--light),var(--box));box-shadow:inset 0 2px #ffffff66,inset -4px -6px #180b092b,0 7px 12px #1b110dc4;display:grid;place-items:center;color:#25180f;font-size:19px;font-weight:900;transition:bottom .53s ease-in-out,opacity .24s;pointer-events:none}
+.gift:before{content:"";position:absolute;width:114%;height:22%;top:0;border-radius:4px;background:linear-gradient(90deg,var(--light) 43%,#ffe2ab 43% 57%,var(--light) 57%);box-shadow:0 3px 4px #20100840}
+.gift:after{content:"";position:absolute;top:-12px;width:20px;height:12px;border:3px solid #ffe2ab;border-radius:10px 10px 3px 3px}
+.panel{background:#241b17;border-radius:0 0 15px 15px;padding:15px 12px 11px}.controls{display:grid;grid-template-columns:1fr 1fr 2.4fr;gap:8px}button{cursor:pointer;border-radius:9px;border:1px solid #9b7057;background:#3a2b23;color:var(--cream);font:700 15px system-ui;padding:10px 12px;min-height:42px}button:hover:enabled{filter:brightness(1.16)}button:focus-visible{outline:2px solid #fff;outline-offset:3px}button:disabled{cursor:default;opacity:.5}.drop{background:#ff914f;color:#23130b;border-color:#ffb47e;box-shadow:inset 0 -3px #b74b27}
+.status{font-size:12px;margin:10px 0 0;text-align:center;min-height:2em}
+dialog{width:min(450px,calc(100% - 28px));max-height:calc(100% - 28px);border:1px solid #b96e44;border-radius:16px;background:#fbedd6;color:#231811;padding:28px;box-shadow:0 30px 90px #0008}dialog::backdrop{background:#1a100cd9}dialog h2{font-size:30px;margin:12px 0}dialog p{color:#593d2f}dialog .eyebrow{color:#943f1d}dialog .close{float:right;background:transparent;color:#41291e;border-color:#a5806c}dialog .card-icon{display:block;font-size:34px;margin-top:24px}
+.reset{background:transparent;border:0;padding:8px 0;color:var(--muted);font-size:12px;text-decoration:underline}
+@media(min-width:721px){.layout{column-gap:clamp(28px,6vw,90px);row-gap:0}.intro{align-self:end}.machine{grid-column:2;grid-row:1 / 3}.collection{align-self:start}}
+@media(max-width:720px){main{width:min(490px,calc(100% - 24px));padding-top:16px}.layout{display:contents}.intro{display:contents}.intro .eyebrow{display:block;margin-top:20px}h1{margin:8px 0}.intro>p{margin:4px 0 16px;max-width:none;font-size:14px}.collection{margin-top:17px}.machine{margin-top:12px}.glass{height:clamp(220px,63vw,300px)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<header>KD <span>VOLLEYBALL · GIFT CARD</span></header>
+<div class="layout">
+<section class="intro">
+<div class="eyebrow">寫給 KD 的數位卡片</div>
+<h1>把今天的好球<br><em>送給你。</em></h1>
+<p>球場上的每一球都有隊友接住。這次，換你接住我準備的五份小禮物。</p>
+</section>
+<section class="machine" aria-label="夾娃娃機">
+<div class="marquee">KD CLAW CLUB</div>
+<div class="glass" id="glass" aria-label="禮物區，可點選位置移動夾爪">
+<div class="court"></div><div class="rail"></div>
+<div class="claw" id="claw"><div class="wire" id="wire"></div><div class="head"></div></div>
+</div>
+<div class="panel">
+<div class="controls"><button id="left" aria-label="向左移動">←</button><button id="right" aria-label="向右移動">→</button><button class="drop" id="drop">下爪夾取</button></div>
+<p class="status" id="status" aria-live="polite">用左右鍵移動，或直接點玻璃裡的禮物。</p>
+</div>
+</section>
+<section class="collection" aria-label="我的禮物">
+<h2>我的禮物 <span id="count">0 / 5</span></h2>
+<div class="slots" id="slots"></div>
+<button class="reset" id="reset" hidden>再玩一次</button>
+</section>
+</div>
+</main>
+<dialog id="card" aria-labelledby="cardTitle">
+<form method="dialog"><button class="close" aria-label="關閉卡片">✕</button></form>
+<div class="eyebrow" id="cardLabel">TO KD</div>
+<span class="card-icon" id="cardIcon" aria-hidden="true"></span>
+<h2 id="cardTitle"></h2>
+<p id="cardText" hidden></p>
+<button class="drop" id="open">拆開卡片</button>
+</dialog>
+<script>
+// 在這裡替換每份禮物的名稱、卡片標題與內文。
+const gifts = [
+  { name:'開球哨', icon:'♪', light:'#f9d491', box:'#b47d40', title:'第一球，送給你', text:'願你喜歡的事，都有一個值得期待的開始。今天就從這聲開球哨開始吧。' },
+  { name:'橘色護腕', icon:'✦', light:'#ff9d57', box:'#be4b25', title:'累了就喊暫停', text:'偶爾接漏一球也沒關係。喝口水、喘口氣，等你準備好了，我們再打下一球。' },
+  { name:'迷你排球', icon:'◉', light:'#fff1cf', box:'#d1a875', title:'這球我幫你接', text:'開心的事我想聽，不順的事也可以說。你開口的時候，我會在。' },
+  { name:'觀賽票根', icon:'★', light:'#eab28f', box:'#a6624a', title:'你的加油席', text:'不管這一局打得怎麼樣，我都想坐在場邊，看你用自己的方式把球打回去。' },
+  { name:'終場信', icon:'♥', light:'#e77f53', box:'#a43e2b', title:'下一場見，KD', text:'謝謝你陪我把這幾球打完。這份小卡是送給你的，希望你每次打開都會笑一下。' }
+];
+const $ = id => document.getElementById(id);
+const glass = $('glass'), claw = $('claw'), wire = $('wire'), card = $('card');
+const position = index => 12 + index * 19;
+const collected = new Set();
+const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const pause = ms => new Promise(resolve => setTimeout(resolve, reduced.matches ? 0 : ms));
+let aim = 50, busy = false, active = 0;
+const prizes = gifts.map((gift, index) => {
+  const prize = document.createElement('div');
+  prize.className = 'gift';
+  prize.setAttribute('aria-hidden', 'true');
+  prize.style.left = position(index) + '%';
+  prize.style.setProperty('--light', gift.light);
+  prize.style.setProperty('--box', gift.box);
+  prize.textContent = gift.icon;
+  glass.append(prize);
+  return prize;
+});
+const slots = gifts.map((gift, index) => {
+  const button = document.createElement('button');
+  button.addEventListener('click', () => showCard(index, true));
+  $('slots').append(button);
+  return button;
+});
+function refresh() {
+  slots.forEach((button, index) => {
+    const found = collected.has(index);
+    button.disabled = !found;
+    button.textContent = found ? gifts[index].name : '待夾取';
+  });
+  $('count').textContent = collected.size + ' / ' + gifts.length;
+  const finished = collected.size === gifts.length;
+  $('reset').hidden = !finished;
+  $('drop').disabled = busy || finished;
+  $('left').disabled = $('right').disabled = busy || finished;
+}
+function move(next) {
+  if (busy || collected.size === gifts.length) return;
+  aim = Math.min(94, Math.max(6, next));
+  claw.style.left = aim + '%';
+}
+function showCard(index, opened = false) {
+  active = index;
+  const gift = gifts[index];
+  $('cardIcon').textContent = gift.icon;
+  $('cardTitle').textContent = gift.name;
+  $('cardText').hidden = true;
+  $('open').hidden = false;
+  card.showModal();
+  if (opened) reveal();
+}
+function reveal() {
+  const gift = gifts[active];
+  $('cardTitle').textContent = gift.title;
+  $('cardText').textContent = gift.text;
+  $('cardText').hidden = false;
+  $('open').hidden = true;
+  card.querySelector('.close').focus();
+}
+async function drop() {
+  if (busy || collected.size === gifts.length) return;
+  busy = true;
+  refresh();
+  $('status').textContent = '夾爪下降中…';
+  const index = gifts.findIndex((_, i) => !collected.has(i) && Math.abs(position(i) - aim) <= 8);
+  const prize = index < 0 ? null : prizes[index];
+  const height = glass.clientHeight - 22 - prizes.find(item => !item.hidden).offsetHeight - 40;
+  wire.style.height = Math.max(60, height) + 'px';
+  await pause(560);
+  claw.classList.add('gripping');
+  await pause(240);
+  wire.style.height = '';
+  if (prize) prize.style.bottom = Math.max(22, 22 + height - 40) + 'px';
+  await pause(560);
+  claw.classList.remove('gripping');
+  if (prize) {
+    prize.hidden = true;
+    prize.style.display = 'none';
+    collected.add(index);
+  }
+  busy = false;
+  refresh();
+  $('status').textContent = collected.size === gifts.length ? '五份禮物都集齊了！可以隨時重讀卡片。' :
+    prize ? '夾到了！還有 ' + (gifts.length - collected.size) + ' 份禮物。' : '差一點！對準還在場上的禮物再試一次。';
+  if (prize) showCard(index);
+  else $('drop').focus();
+}
+$('left').onclick = () => move(aim - 19);
+$('right').onclick = () => move(aim + 19);
+$('drop').onclick = drop;
+$('open').onclick = reveal;
+glass.addEventListener('click', event => {
+  const bounds = glass.getBoundingClientRect();
+  move(100 * (event.clientX - bounds.left) / bounds.width);
+});
+document.addEventListener('keydown', event => {
+  if (card.open || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+    event.preventDefault();
+    move(aim + (event.key === 'ArrowRight' ? 19 : -19));
+  }
+});
+card.addEventListener('close', () => {
+  if (!card.contains(document.activeElement) && document.activeElement !== document.body) return;
+  const target = collected.size === gifts.length ? slots[active] : $('drop');
+  target.focus();
+});
+$('reset').onclick = () => {
+  collected.clear();
+  prizes.forEach(prize => {
+    prize.hidden = false;
+    prize.style.display = '';
+    prize.style.bottom = '';
+  });
+  move(50);
+  refresh();
+  $('status').textContent = '用左右鍵移動，或直接點玻璃裡的禮物。';
+  $('drop').focus();
+};
+refresh();
+</script>
+</body>
+</html>
